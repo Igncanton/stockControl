@@ -61,10 +61,6 @@ const bringNewUserFormElements = () => {
         const pass01Value = newPassword01.value
         const pass02Value = newPassword02.value
 
-        console.log(userValue)
-        console.log(pass01Value)
-        console.log(pass02Value)
-
         if (userValue === '' || pass01Value === '' || pass02Value === '') {
             alert("Campos vacios, completelos con sus datos por favor.")
             newUserName.focus()
@@ -119,7 +115,7 @@ btnCreateAccount.addEventListener('click', () => {
     //creates return to login link
     const returnAnchor = document.createElement('a')
     returnAnchor.innerHTML = 'Return to Login'
-    returnAnchor.href = 'login.html'
+    returnAnchor.href = 'index.html'
     returnAnchor.classList.add('returnAnchor')
     loginContainer.append(returnAnchor)
 
