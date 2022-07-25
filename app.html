@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="app.css">
+    <title>Stock Control</title>
+</head>
+
+<body id="body">
+    <header>
+        <h1>Stockify</h1>
+        <button class="logOut" id="logOutBtn">Log Out</button>
+    </header>
+    <h2 class="appTitle">STOCK CONTROL</h2>
+    <main class="mainDiv" id="mainDiv">
+        <form action="">
+            <div class="inputContainer">
+                <input type="text" id="inputID" placeholder="ID #..." autocomplete="off">
+            </div>
+            <div class="inputContainer">
+                <input type="text" id="inputProduct" placeholder="Product name..." autocomplete="off">
+            </div>
+            <div class="inputContainer">
+                <input type="text" id="inputAmount" placeholder="Amount..." autocomplete="off">
+            </div>
+            <input id="inputBtn" class="inputBtn" type="submit" value="+">
+        </form>
+
+        <div class="itemList" id="itemList">
+
+        </div>
+
+        <button class="emptyBtn" id="emptyBtn">Delete Everything</button>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

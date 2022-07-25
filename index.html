@@ -6,35 +6,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="index.css">
-    <title>Stock Control</title>
+    <title>Stockify</title>
 </head>
 
-<body id="body">
-    <header>
-        <h1>Stockify</h1>
-        <button class="logOut" id="logOutBtn">Log Out</button>
-    </header>
-    <h2 class="appTitle">STOCK CONTROL</h2>
-    <main class="mainDiv" id="mainDiv">
-        <form action="">
-            <div class="inputContainer">
-                <input type="text" id="inputID" placeholder="ID #..." autocomplete="off">
-            </div>
-            <div class="inputContainer">
-                <input type="text" id="inputProduct" placeholder="Product name..." autocomplete="off">
-            </div>
-            <div class="inputContainer">
-                <input type="text" id="inputAmount" placeholder="Amount..." autocomplete="off">
-            </div>
-            <input id="inputBtn" class="inputBtn" type="submit" value="+">
+<body>
+    <div class="loginContainer" id="loginContainer">
+        <h1 id="loginTitle">Stockify</h1>
+        <p id="loginSubtitle">Login In</p>
+        <form action="" class="form loginForm" id="loginForm" autocomplete="off">
+            <input class="inputLogin" id="loginName" type="text" placeholder="Username...">
+            <input class="inputLogin" id="loginPassword" type="text" style="-webkit-text-security: disc;"
+                placeholder="Password...">
+            <input class="btnLogin" id="btnLogin" type="submit" value="Log In">
         </form>
+        <button class="btnCreateAccount" id="btnCreateAccount">Sign up</button>
 
-        <div class="itemList" id="itemList">
-
-        </div>
-
-        <button class="emptyBtn" id="emptyBtn">Delete Everything</button>
-    </main>
+        <!-- <p>Create User</p>
+        <form action="" class="form createForm" id="createForm">
+            <input class="inputLogin" type="text" placeholder="Enter new username...">
+            <input class="inputLogin" type="password" placeholder="Password...">
+            <input class="inputLogin" type="password" placeholder="Re-enter Password...">
+            <input class="btnLogin" type="submit" value="Create User">
+        </form> -->
+    </div>
 
     <script src="index.js"></script>
 </body>
