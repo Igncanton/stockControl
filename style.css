@@ -45,7 +45,7 @@ form {
 
 .inputContainer input {
     height: 4rem;
-    width: 34rem;
+    width: 30rem;
     border-style: none;
     border: 2px solid black;
     padding-left: 0.2em;
@@ -56,13 +56,18 @@ form {
     outline: none;
 }
 
-#inputProduct {
+#inputID {
+    width: 6.1em;
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
 }
 
+#inputProduct {
+    border-left: none;
+}
+
 #inputAmount {
-    width: 9.35em;
+    width: 6em;
     border-left: none;
 }
 
@@ -97,22 +102,39 @@ form {
     display: flex;
 }
 
-.itemName {
+.itemId {
     height: 3rem;
-    width: 34rem;
+    width: 9.13rem;
     border: 2px solid black;
     padding-left: 0.2em;
     font-size: 1.5rem;
     line-height: 2.72rem;
 }
 
+.itemName {
+    height: 3rem;
+    width: 30rem;
+    border: 2px solid black;
+    padding-left: 0.2em;
+    font-size: 1.5rem;
+    line-height: 2.72rem;
+    border-left: none;
+}
+
 .itemAmount {
-    width: 14rem;
+    width: 9rem;
     border: 2px solid black;
     text-align: center;
     border-left: none;
     font-size: 1.5rem;
     line-height: 2.72rem;
+}
+
+.submitBtn {
+    width: 4.13rem;
+    font-size: 1.5rem;
+    background-color: cadetblue;
+    cursor: pointer;
 }
 
 .btn {
@@ -126,7 +148,7 @@ form {
 
 .btnEdit {
     background-color: cadetblue;
-    cursor: not-allowed;
+    cursor: pointer;
 }
 
 .btnDelete {
@@ -136,6 +158,11 @@ form {
 
 .btnDelete:hover {
     background-color: rgb(245, 20, 65);
+}
+
+.btnDisabled {
+    cursor: not-allowed;
+    pointer-events: none;
 }
 
 /* Delete everything btn */
@@ -156,4 +183,12 @@ form {
 
 .emptyBtn:hover {
     background-color: dimgray;
+}
+
+/* Form edit */
+.formEdit {
+    background-color: blueviolet;
+    width: 52.26rem;
+    height: 3rem;
+
 }
