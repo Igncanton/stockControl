@@ -11,12 +11,17 @@ let usersDB = []
 
 //Database existence checker
 const usersDataBaseChecker = () => {
-    if (localStorage.getItem('StockifyDB')) {
-        usersDB = JSON.parse(localStorage.getItem('StockifyDB'))
-    } else {
-        usersDB.push({ user: 'admin', pass: 'admin' })
-        localStorage.setItem('StockifyDB', JSON.stringify(usersDB))
-    }
+    // if (localStorage.getItem('StockifyDB')) {
+    //     usersDB = JSON.parse(localStorage.getItem('StockifyDB'))
+    // } else {
+    //     usersDB.push({ user: 'admin', pass: 'admin' })
+    //     localStorage.setItem('StockifyDB', JSON.stringify(usersDB))
+    // }
+
+    //Ternary Operator
+    localStorage.getItem('StockifyDB')
+        ? usersDB = JSON.parse(localStorage.getItem('StockifyDB'))
+        : (usersDB.push({ user: 'admin', pass: 'admin' }), localStorage.setItem('StockifyDB', JSON.stringify(usersDB)))
 }
 
 usersDataBaseChecker()
@@ -33,7 +38,7 @@ loginForm.addEventListener('submit', (e) => {
         const passResult = usersDB.find(x => x.pass === inputPassword)
 
         if (nameResult === undefined || passResult === undefined) {
-            alert("nombre o contraseña no validos")
+            alert("Nombre y/o contraseñas no validos")
             loginName.value = ''
             loginPassword.value = ''
             loginName.focus()
@@ -43,13 +48,10 @@ loginForm.addEventListener('submit', (e) => {
     }
 
     findArrayName()
-
-
 })
 
 //Handles all the information and events in the new user form
 const bringNewUserFormElements = () => {
-    const createForm = document.getElementById('createForm')
     const createNewUserBtn = document.getElementById('createNewUserBtn')
     const newUserName = document.getElementById('newUserName')
     const newPassword01 = document.getElementById('newPassword01')
@@ -80,7 +82,7 @@ const bringNewUserFormElements = () => {
                     newPassword01.focus()
                 }
             } else {
-                alert('that user already exists, choose a different name')
+                alert('That user already exists, choose a different name')
                 newUserName.focus()
             }
         }

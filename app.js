@@ -17,14 +17,17 @@ const trashIcon = `<img src="./img/deleteIcon2.svg" style="width:16px; pointer-e
 
 //Creates all the items maping the main array
 const itemsCreation = () => {
-    itemsArray.forEach(itemMap => {
+    itemsArray.forEach(itemArray => {
+        //Desctructuring of the object
+        let { id: itemId, item: itemName, stock: itemStock } = itemArray
+        //Creating each individual item
         let newItem = document.createElement('div')
         newItem.classList.add('itemContainer')
-        newItem.id = `${itemMap.id}`
+        newItem.id = `${itemId}`
         newItem.innerHTML = `
-                <p class="itemId" id="itemId">${itemMap.id}</p>
-                <p class="itemName" id="itemName">${itemMap.item}</p>
-                <p class="itemAmount" id="itemAmount">${itemMap.stock}</p>
+                <p class="itemId" id="itemId">${itemId}</p>
+                <p class="itemName" id="itemName">${itemName}</p>
+                <p class="itemAmount" id="itemAmount">${itemStock}</p>
                 <button class="btn btnEdit" id="btnEdit">${editIcon}</button>
                 <button class="btn btnDelete" id="btnDelete">${trashIcon}</button>
         `
@@ -34,13 +37,18 @@ const itemsCreation = () => {
 
 //Checks if there is a localStorage created, otherwise it creates one
 const localStorageChecker = () => {
-    if (localStorage.getItem('stockApp')) {
-        itemsArray = JSON.parse(localStorage.getItem('stockApp'))
-        itemsCreation()
-    } else {
-        localStorage.setItem('stockApp', itemsArray)
-        itemsCreation()
-    }
+    // if (localStorage.getItem('stockApp')) {
+    //     itemsArray = JSON.parse(localStorage.getItem('stockApp'))
+    //     itemsCreation()
+    // } else {
+    //     localStorage.setItem('stockApp', itemsArray)
+    //     itemsCreation()
+    // }
+
+    //Ternary operator
+    localStorage.getItem('stockApp')
+        ? (itemsArray = JSON.parse(localStorage.getItem('stockApp')), itemsCreation())
+        : (localStorage.setItem('stockApp', itemsArray), itemsCreation())
 }
 
 localStorageChecker()
@@ -114,11 +122,9 @@ itemList.addEventListener('click', (e) => {
         localStorage.setItem('stockApp', JSON.stringify(itemsArray))
 
         let btnParentId = e.target.parentElement.id
-        let itemsArraySearch = itemsArray.find(x => x.id === btnParentId)
 
-        const originalIdValue = itemsArraySearch.id
-        const originalNameValue = itemsArraySearch.item
-        const originalAmountValue = itemsArraySearch.stock
+        //Destructuring the object
+        let { id: originalIdValue, item: originalNameValue, stock: originalAmountValue } = itemsArray.find(x => x.id === btnParentId)
 
         //Creates form
         const newFormEdit = document.createElement('form')
@@ -170,17 +176,24 @@ itemList.addEventListener('click', (e) => {
             const arraySearch = itemsArray.find(x => x.id === e.target.id)
 
             const emptyChecker = () => {
-                if (newIdValue === '') {
-                    newIdValue = arraySearch.id
-                }
+                // if (newIdValue === '') {
+                //     newIdValue = arraySearch.id
+                // }
 
-                if (newNameValue === '') {
-                    newNameValue = arraySearch.item
-                }
+                // if (newNameValue === '') {
+                //     newNameValue = arraySearch.item
+                // }
 
-                if (newAmountValue === '') {
-                    newAmountValue = arraySearch.stock
-                }
+                // if (newAmountValue === '') {
+                //     newAmountValue = arraySearch.stock
+                // }
+
+                //Logic Operator AND
+                (newIdValue === '') && (newIdValue = arraySearch.id);
+
+                (newNameValue === '') && (newNameValue = arraySearch.item);
+
+                (newAmountValue === '') && (newAmountValue = arraySearch.stock);
             }
 
             emptyChecker()
