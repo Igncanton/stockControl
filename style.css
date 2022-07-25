@@ -16,6 +16,37 @@ body {
     min-height: 100vh;
 }
 
+/* Header */
+header {
+
+    background-color: darkolivegreen;
+    display: flex;
+    justify-content: space-between;
+}
+
+header h1 {
+    color: whitesmoke;
+    margin-left: 1rem;
+    padding: 0.5rem 0;
+}
+
+.logOut {
+    background-color: rgb(59, 73, 35);
+    color: whitesmoke;
+    border-style: none;
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.05rem;
+    cursor: pointer;
+    transition: background-color 500ms ease;
+
+}
+
+.logOut:hover {
+    background-color: rgb(27, 34, 16);
+}
+
 /* Title & MainContainer */
 .appTitle {
     font-size: 5.5rem;

@@ -5,6 +5,7 @@ const inputProduct = document.getElementById('inputProduct')
 const inputAmount = document.getElementById('inputAmount')
 const inputBtn = document.getElementById('inputBtn')
 const emptyBtn = document.getElementById('emptyBtn')
+const logOutBtn = document.getElementById('logOutBtn')
 
 
 //Main array containing all the products added in local storage
@@ -205,5 +206,7 @@ itemList.addEventListener('click', (e) => {
     }
 })
 
-//Edit Items
+logOutBtn.addEventListener('click', () => {
+    window.location.replace("login.html");
+})
 
