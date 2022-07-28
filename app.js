@@ -37,13 +37,6 @@ const itemsCreation = () => {
 
 //Checks if there is a localStorage created, otherwise it creates one
 const localStorageChecker = () => {
-    // if (localStorage.getItem('stockApp')) {
-    //     itemsArray = JSON.parse(localStorage.getItem('stockApp'))
-    //     itemsCreation()
-    // } else {
-    //     localStorage.setItem('stockApp', itemsArray)
-    //     itemsCreation()
-    // }
 
     //Ternary operator
     localStorage.getItem('stockApp')
@@ -63,7 +56,16 @@ inputBtn.addEventListener('click', (e) => {
 
     if (idProduct === '' || amount === '' || product === '') {
 
-        alert("Campos vacios: ingrese ID, Nombre y Cantidad del producto")
+        Swal.fire({
+            icon: 'warning',
+            title: 'Empty fields detected',
+            text: 'Please complete all the fields to continue.',
+            confirmButtonColor: '#5F9EA0',
+            iconColor: '#5F9EA0',
+            customClass: {
+                confirmButton: 'modalBtn'
+            }
+        })
 
     } else {
 
@@ -89,6 +91,16 @@ inputBtn.addEventListener('click', (e) => {
         inputId.value = ''
         inputProduct.value = ''
         inputAmount.value = ''
+
+        Toastify({
+            text: "Added product",
+            gravity: 'bottom',
+            position: 'right',
+            style: {
+                background: '#556b2f',
+            },
+            duration: 1700
+        }).showToast();
     }
 
 })
@@ -100,6 +112,16 @@ emptyBtn.addEventListener('click', () => {
     while (itemList.firstChild) {
         itemList.firstChild.remove()
     }
+
+    Toastify({
+        text: "Emptied list",
+        gravity: 'bottom',
+        position: 'right',
+        style: {
+            background: '#777777',
+        },
+        duration: 1700
+    }).showToast();
 })
 
 //Deletes individual objects
@@ -115,6 +137,16 @@ itemList.addEventListener('click', (e) => {
         itemsArray.splice(itemFind, 1)
 
         localStorage.setItem('stockApp', JSON.stringify(itemsArray))
+
+        Toastify({
+            text: "Deleted product",
+            gravity: 'bottom',
+            position: 'right',
+            style: {
+                background: '#dc143c',
+            },
+            duration: 1700
+        }).showToast();
     }
 
     //Edit Functions
@@ -176,18 +208,6 @@ itemList.addEventListener('click', (e) => {
             const arraySearch = itemsArray.find(x => x.id === e.target.id)
 
             const emptyChecker = () => {
-                // if (newIdValue === '') {
-                //     newIdValue = arraySearch.id
-                // }
-
-                // if (newNameValue === '') {
-                //     newNameValue = arraySearch.item
-                // }
-
-                // if (newAmountValue === '') {
-                //     newAmountValue = arraySearch.stock
-                // }
-
                 //Logic Operator AND
                 (newIdValue === '') && (newIdValue = arraySearch.id);
 
@@ -213,6 +233,16 @@ itemList.addEventListener('click', (e) => {
         `
 
             localStorage.setItem('stockApp', JSON.stringify(itemsArray))
+
+            Toastify({
+                text: "Edited product",
+                gravity: 'bottom',
+                position: 'right',
+                style: {
+                    background: '#5F9EA0',
+                },
+                duration: 1700
+            }).showToast();
         })
 
 

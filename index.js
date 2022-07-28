@@ -11,12 +11,6 @@ let usersDB = []
 
 //Database existence checker
 const usersDataBaseChecker = () => {
-    // if (localStorage.getItem('StockifyDB')) {
-    //     usersDB = JSON.parse(localStorage.getItem('StockifyDB'))
-    // } else {
-    //     usersDB.push({ user: 'admin', pass: 'admin' })
-    //     localStorage.setItem('StockifyDB', JSON.stringify(usersDB))
-    // }
 
     //Ternary Operator
     localStorage.getItem('StockifyDB')
@@ -38,10 +32,20 @@ loginForm.addEventListener('submit', (e) => {
         const passResult = usersDB.find(x => x.pass === inputPassword)
 
         if (nameResult === undefined || passResult === undefined) {
-            alert("Nombre y/o contraseñas no validos")
+            Swal.fire({
+                icon: 'error',
+                title: 'Invalid user or password',
+                text: 'Please try again!.',
+                confirmButtonColor: '#dc143c',
+                iconColor: '#dc143c',
+                customClass: {
+                    confirmButton: 'modalBtn'
+                },
+                willClose: loginName.focus()
+            })
+
             loginName.value = ''
             loginPassword.value = ''
-            loginName.focus()
         } else {
             window.location.replace("app.html");
         }
@@ -64,26 +68,69 @@ const bringNewUserFormElements = () => {
         const pass02Value = newPassword02.value
 
         if (userValue === '' || pass01Value === '' || pass02Value === '') {
-            alert("Campos vacios, completelos con sus datos por favor.")
-            newUserName.focus()
+            Swal.fire({
+                icon: 'warning',
+                title: 'Empty fields detected',
+                text: 'Please complete all the fields to continue.',
+                confirmButtonColor: '#5F9EA0',
+                iconColor: '#5F9EA0',
+                customClass: {
+                    confirmButton: 'modalBtn'
+                },
+                willClose: newUserName.focus()
+            })
+
         } else {
             const newUserSearch = usersDB.find(x => x.user === userValue)
 
             if (newUserSearch === undefined) {
                 if (pass01Value === pass02Value) {
-                    alert('Creación de usuario exitosa')
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        text: 'New user succesfully created!.',
+                        confirmButtonColor: '#556b2f',
+                        iconColor: '#556b2f',
+                        showConfirmButton: false,
+                        customClass: {
+                            confirmButton: 'modalBtn'
+                        },
+                        didClose: setTimeout(() => {
+                            location.reload()
+                        }, '850')
+                    })
+
                     usersDB.push({ user: userValue, pass: pass01Value })
                     localStorage.setItem('StockifyDB', JSON.stringify(usersDB))
-                    location.reload()
+
                 } else {
-                    alert('Passwords are different, please enter the same password twice for confirmation.')
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Password mismatch',
+                        text: 'Both passwords must be equal, please try again.',
+                        confirmButtonColor: '#dc143c',
+                        iconColor: '#dc143c',
+                        customClass: {
+                            confirmButton: 'modalBtn'
+                        },
+                        willClose: newPassword01.focus()
+                    })
                     newPassword01.value = ''
                     newPassword02.value = ''
-                    newPassword01.focus()
                 }
             } else {
-                alert('That user already exists, choose a different name')
-                newUserName.focus()
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'That user already exists',
+                    text: 'Please choose a different name.',
+                    confirmButtonColor: '#dc143c',
+                    iconColor: '#dc143c',
+                    customClass: {
+                        confirmButton: 'modalBtn'
+                    },
+                    willClose: newUserName.focus()
+                })
             }
         }
     })
