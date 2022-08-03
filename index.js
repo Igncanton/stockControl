@@ -10,15 +10,25 @@ const btnCreateAccount = document.getElementById('btnCreateAccount')
 let usersDB = []
 
 //Database existence checker
-const usersDataBaseChecker = () => {
-
+const usersDataBaseChecker = (usersDefault) => {
     //Ternary Operator
     localStorage.getItem('StockifyDB')
         ? usersDB = JSON.parse(localStorage.getItem('StockifyDB'))
-        : (usersDB.push({ user: 'admin', pass: 'admin' }), localStorage.setItem('StockifyDB', JSON.stringify(usersDB)))
+        : (usersDB.push(usersDefault[0], usersDefault[1]), localStorage.setItem('StockifyDB', JSON.stringify(usersDB)))
 }
 
-usersDataBaseChecker()
+// Async JSON fetch for default users data
+async function obtenerProductos() {
+    const datos = await fetch('./json/defaultUsersDB.json');
+    const datosConv = await datos.json();
+    return datosConv
+}
+
+const array = obtenerProductos()
+
+array.then(data => usersDataBaseChecker(data))
+
+// usersDataBaseChecker()
 
 //Login form
 loginForm.addEventListener('submit', (e) => {
@@ -47,6 +57,8 @@ loginForm.addEventListener('submit', (e) => {
             loginName.value = ''
             loginPassword.value = ''
         } else {
+            nameResult.state = true
+            localStorage.setItem('StockifyDB', JSON.stringify(usersDB))
             window.location.replace("app.html");
         }
     }
@@ -101,7 +113,7 @@ const bringNewUserFormElements = () => {
                         }, '850')
                     })
 
-                    usersDB.push({ user: userValue, pass: pass01Value })
+                    usersDB.push({ user: userValue, pass: pass01Value, state: false, stock: [] })
                     localStorage.setItem('StockifyDB', JSON.stringify(usersDB))
 
                 } else {

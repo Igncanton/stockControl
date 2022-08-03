@@ -9,12 +9,17 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <!-- Main style sheet -->
     <link rel="stylesheet" href="app.css">
-    <title>Stock Control</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="./img/favicon.png">
+    <title>Stockify</title>
 </head>
 
 <body id="body">
     <header>
-        <h1>Stockify</h1>
+        <div class="logoContainer" id="logoContainer">
+            <img src="./img/favicon.png" class="logo" style="width:45px; height:45px">
+            <h1 class="logoTitle">Stockify</h1>
+        </div>
         <button class="logOut" id="logOutBtn">Log Out</button>
     </header>
     <h2 class="appTitle">STOCK CONTROL</h2>
@@ -41,7 +46,7 @@
 
 
     <!-- Sweet Alert 2 CDN -->
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Toastify JS CDN -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <!-- Main Script -->

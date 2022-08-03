@@ -18,16 +18,27 @@ body {
 
 /* Header */
 header {
-
     background-color: darkolivegreen;
     display: flex;
     justify-content: space-between;
 }
 
-header h1 {
+.logoContainer {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.logo {
+    width: 45px;
+    height: 45px;
+    pointer-events: none;
+}
+
+.logoTitle {
     color: whitesmoke;
-    margin-left: 1rem;
     padding: 0.5rem 0;
+    pointer-events: none;
 }
 
 .logOut {
@@ -202,18 +213,18 @@ form {
     margin: 1em auto 0 auto;
     font-size: 1.4rem;
     border: none;
-    background-color: slategray;
+    background-color: #777777;
     color: whitesmoke;
     padding: 0.9em 1em;
     border-radius: 4px;
     line-height: 0;
     cursor: pointer;
     transition: background-color 500ms ease;
-    border: 1px solid black;
+
 }
 
 .emptyBtn:hover {
-    background-color: dimgray;
+    background-color: #555555;
 }
 
 /* Form edit */
@@ -221,5 +232,41 @@ form {
     background-color: blueviolet;
     width: 52.26rem;
     height: 3rem;
+}
 
+/* Media Queries */
+@media (max-width: 915px) {
+    html {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 730px) {
+    html {
+        font-size: 0.7rem;
+    }
+}
+
+@media (max-width: 640px) {
+    html {
+        font-size: 0.6rem;
+    }
+}
+
+@media (max-width: 550px) {
+    html {
+        font-size: 0.5rem;
+    }
+}
+
+@media (max-width: 458px) {
+    html {
+        font-size: 0.4rem;
+    }
+}
+
+@media (max-width: 370px) {
+    html {
+        font-size: 0.3rem;
+    }
 }

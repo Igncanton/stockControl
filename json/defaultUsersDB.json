@@ -1,0 +1,30 @@
+[
+    {
+        "user": "admin",
+        "pass": "admin",
+        "state": false,
+        "stock": []
+    },
+    {
+        "user": "example",
+        "pass": "example",
+        "state": false,
+        "stock": [
+            {
+                "id": "0000",
+                "item": "Example 01",
+                "stock": 100
+            },
+            {
+                "id": "1111",
+                "item": "Example 02",
+                "stock": 200
+            },
+            {
+                "id": "2222",
+                "item": "Example 03",
+                "stock": 300
+            }
+        ]
+    }
+]
