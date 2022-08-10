@@ -18,14 +18,16 @@ if (userLogin === undefined) {
 } else {
     //Main array containing all the products added in the user's local storage
     let itemsArray = []
+    let user = ''
 
     //Svg icons
     const editIcon = `<img src="./img/editIcon2.svg" style="width:16px; pointer-events: none" alt="Edit trash icon">`
     const trashIcon = `<img src="./img/deleteIcon2.svg" style="width:16px; pointer-events: none" alt="Delete trash icon">`
+    const searchIcon = `<img src="./img/searchIcon2.svg" style="width:14px; pointer-events: none" alt="Search trash icon">`
 
     //Creates all the items within the main array
-    const itemsCreation = () => {
-        itemsArray.forEach(itemArray => {
+    const itemsCreation = (arrayParam) => {
+        arrayParam.forEach(itemArray => {
             //Desctructuring of the object
             let { id: itemId, item: itemName, stock: itemStock } = itemArray
             //Creating each individual item
@@ -33,7 +35,7 @@ if (userLogin === undefined) {
             newItem.classList.add('itemContainer')
             newItem.id = `${itemId}`
             newItem.innerHTML = `
-                <p class="itemId" id="itemId">${itemId}</p>
+                <p class="itemId" id="itemId">#${itemId}</p>
                 <p class="itemName" id="itemName">${itemName}</p>
                 <p class="itemAmount" id="itemAmount">${itemStock}</p>
                 <button class="btn btnEdit" id="btnEdit">${editIcon}</button>
@@ -43,17 +45,34 @@ if (userLogin === undefined) {
         });
     }
 
+    //Empties all items from itemList in the DOM
+    const emptyItemList = () => {
+        while (itemList.firstChild) {
+            itemList.firstChild.remove()
+        }
+    }
+
     //User's stock list 
     const bringUserStock = () => {
         const dataBaseDB = JSON.parse(localStorage.getItem('StockifyDB'))
         const userFind = dataBaseDB.find(x => x.state === true)
-        console.log(userFind)
         userActive = userFind.user
         itemsArray = userFind.stock
-        itemsCreation()
+        itemsCreation(itemsArray)
+        user = userActive
     }
 
     bringUserStock()
+
+    //Converts the first letter of a string to upperCase
+    const firstLetterUpperCase = (stringParam) => {
+        let lowerCaseString = stringParam.toLowerCase()
+        let stringSplit = lowerCaseString.split('')
+        stringSplit[0] = stringSplit[0].toUpperCase()
+        stringSplit = stringSplit.join('')
+
+        return stringSplit
+    }
 
     //Input event listener
     inputBtn.addEventListener('click', (e) => {
@@ -61,8 +80,10 @@ if (userLogin === undefined) {
 
         let idProduct = inputId.value
         let product = inputProduct.value
-        let amount = inputAmount.value
+        let amount = parseInt(inputAmount.value)
 
+
+        //hecks if there are empty inputs
         if (idProduct === '' || amount === '' || product === '') {
 
             Swal.fire({
@@ -76,17 +97,52 @@ if (userLogin === undefined) {
                 }
             })
 
+        } else if (isNaN(amount) && isNaN(idProduct)) { //Checks if ID & Amount are both numbers
+            Swal.fire({
+                icon: 'warning',
+                title: 'ID & Amount must be a numbers!',
+                text: 'Please enter a valid number for both.',
+                confirmButtonColor: '#5F9EA0',
+                iconColor: '#5F9EA0',
+                customClass: {
+                    confirmButton: 'modalBtn'
+                }
+            })
+        } else if (isNaN(idProduct)) { //Checks if only ID is a number
+            Swal.fire({
+                icon: 'warning',
+                title: 'ID must be a number!',
+                text: 'Please enter a valid number for amount.',
+                confirmButtonColor: '#5F9EA0',
+                iconColor: '#5F9EA0',
+                customClass: {
+                    confirmButton: 'modalBtn'
+                }
+            })
+        } else if (isNaN(amount)) { //Checks if only Amount is a number
+            Swal.fire({
+                icon: 'warning',
+                title: 'Amount must be a number!',
+                text: 'Please enter a valid number for amount.',
+                confirmButtonColor: '#5F9EA0',
+                iconColor: '#5F9EA0',
+                customClass: {
+                    confirmButton: 'modalBtn'
+                }
+            })
         } else {
-
+            product = firstLetterUpperCase(inputProduct.value)
+            //creates the new item object and pushes it the the main array
             let itemObject = { id: idProduct, item: product, stock: amount }
 
             itemsArray.push(itemObject)
 
+            //creates and appends it in the dom
             let item = document.createElement('div')
             item.classList.add('itemContainer')
             item.setAttribute('id', `${idProduct}`)
             item.innerHTML = `
-                <p class="itemId" id="itemId">${idProduct}</p>
+                <p class="itemId" id="itemId">#${idProduct}</p>
                 <p class="itemName" id="itemName">${product}</p>
                 <p class="itemAmount" id="itemAmount">${amount}</p>
                 <button class="btn btnEdit" id="btnEdit">${editIcon}</button>
@@ -95,9 +151,11 @@ if (userLogin === undefined) {
 
             itemList.appendChild(item)
 
+            //updates local storage
             userLogin.stock = itemsArray
             localStorage.setItem('StockifyDB', JSON.stringify(appDB))
 
+            //resets values to empty strings
             inputId.value = ''
             inputProduct.value = ''
             inputAmount.value = ''
@@ -118,23 +176,49 @@ if (userLogin === undefined) {
     //Empties the dom and the localStorage
     emptyBtn.addEventListener('click', () => {
 
-        itemsArray = []
-        userLogin.stock = itemsArray
-        localStorage.setItem('StockifyDB', JSON.stringify(appDB))
-
-        while (itemList.firstChild) {
-            itemList.firstChild.remove()
-        }
-
-        Toastify({
-            text: "Emptied list",
-            gravity: 'bottom',
-            position: 'right',
-            style: {
-                background: '#777777',
+        Swal.fire({
+            title: 'Everything will be deleted, are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            iconColor: '#dc143c',
+            showCancelButton: true,
+            confirmButtonColor: '#556B2F',
+            cancelButtonColor: '#dc143c',
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel it!',
+            customClass: {
+                confirmButton: 'modalBtn',
+                cancelButton: 'modalBtn'
             },
-            duration: 1700
-        }).showToast();
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: 'Deleted!',
+                    text: 'Your items has been deleted.',
+                    icon: 'success',
+                    confirmButtonColor: '#556B2F',
+                    customClass: {
+                        confirmButton: 'modalBtn'
+                    }
+                })
+
+                itemsArray = []
+                userLogin.stock = itemsArray
+                localStorage.setItem('StockifyDB', JSON.stringify(appDB))
+
+                emptyItemList()
+
+                Toastify({
+                    text: "Emptied list",
+                    gravity: 'bottom',
+                    position: 'right',
+                    style: {
+                        background: '#777777',
+                    },
+                    duration: 1700
+                }).showToast();
+            }
+        })
     })
 
     //Deletes individual objects
@@ -165,8 +249,6 @@ if (userLogin === undefined) {
 
         //Edit Functions
         if (e.target.classList.contains('btnEdit')) {
-            // localStorage.setItem('stockApp', JSON.stringify(itemsArray))
-
             let btnParentId = e.target.parentElement.id
 
             //Destructuring the object
@@ -232,6 +314,8 @@ if (userLogin === undefined) {
 
                 emptyChecker()
 
+                newNameValue = firstLetterUpperCase(newNameValue)
+
                 arraySearch.id = newIdValue
                 arraySearch.item = newNameValue
                 arraySearch.stock = newAmountValue
@@ -278,5 +362,136 @@ if (userLogin === undefined) {
         window.location.replace("index.html");
     })
 
+    //Elements from the DOM - Control Panel
+    const userActiveDisplay = document.getElementById('userActiveDisplay')
+    const searchFormByName = document.getElementById('searchFormByName')
+    const searchNameInput = document.getElementById('searchNameInput')
+    const btnSearchName = document.getElementById('btnSearchName')
+    const searchFormByID = document.getElementById('searchFormByID')
+    const searchIdInput = document.getElementById('searchIdInput')
+    const btnSearchID = document.getElementById('btnSearchID')
+
+    //User logged in
+    userActiveDisplay.innerHTML = `${user}`
+    btnSearchName.innerHTML = `${searchIcon}`
+    btnSearchID.innerHTML = `${searchIcon}`
+
+    //Search by name input
+    searchFormByName.addEventListener('submit', (e) => {
+        e.preventDefault()
+        const searchValue = searchNameInput.value
+        const searchItemsArray = itemsArray.find(x => x.item === searchValue)
+
+        if (searchItemsArray !== undefined) {
+            const searchItemID = searchItemsArray.id
+
+            const itemID = document.getElementById(searchItemID)
+            console.log(itemID)
+            itemID.classList.add('itemFocus')
+            itemID.scrollIntoView()
+            searchNameInput.value = ''
+
+            setTimeout(() => {
+                itemID.classList.remove('itemFocus')
+            }, 1900)
+        } else {
+            searchNameInput.value = ''
+            Swal.fire({
+                icon: 'error',
+                title: "Name not found!",
+                text: 'Name does not match any item, please try again!',
+                confirmButtonColor: '#5F9EA0',
+                iconColor: '#5F9EA0',
+                customClass: {
+                    confirmButton: 'modalBtn'
+                },
+                willClose: searchNameInput.focus()
+            })
+        }
+    })
+
+    //Search by ID input
+    searchFormByID.addEventListener('submit', (e) => {
+        e.preventDefault()
+        const searchValue = searchIdInput.value
+        const searchItem = itemsArray.find(x => x.id === searchValue)
+
+        if (searchItem !== undefined) {
+            const searchItemID = searchItem.id
+            const itemID = document.getElementById(searchItemID)
+            itemID.classList.add('itemFocus')
+            itemID.scrollIntoView()
+            searchIdInput.value = ''
+
+            setTimeout(() => {
+                itemID.classList.remove('itemFocus')
+            }, 1900)
+        } else {
+            searchIdInput.value = ''
+            Swal.fire({
+                icon: 'error',
+                title: "ID not found!",
+                text: 'ID does not match any item, please try again!',
+                confirmButtonColor: '#5F9EA0',
+                iconColor: '#5F9EA0',
+                customClass: {
+                    confirmButton: 'modalBtn'
+                },
+                willClose: searchIdInput.focus()
+            })
+        }
+    })
+
+
+    /* Orders all items by different values within the dropdown select */
+    const orderOptionsDropdown = document.getElementById('orderOptionsDropdown')
+
+    orderOptionsDropdown.addEventListener('change', (e) => {
+        const selectedOptionIndex = e.target.selectedIndex
+
+        let sortingArray = [...itemsArray]
+
+        const newItemListSorted = (paramArray) => {
+            emptyItemList()
+            itemsCreation(paramArray)
+        }
+
+        switch (selectedOptionIndex) {
+            case 0:
+                //orders by last added items
+                newItemListSorted(itemsArray)
+                break;
+
+            case 1:
+                //orders by first added items
+                sortingArray.sort().reverse()
+                newItemListSorted(sortingArray)
+                break;
+
+            case 2:
+                //orders items by name alphabetically ascending
+                sortingArray.sort((a, b) => a.item.localeCompare(b.item))
+                newItemListSorted(sortingArray)
+                break;
+
+            case 3:
+                //orders items by name alphabetically ascending
+                sortingArray.sort((a, b) => b.item.localeCompare(a.item))
+                newItemListSorted(sortingArray)
+                break;
+
+            case 4:
+                //orders by id minor to major
+                sortingArray.sort((a, b) => a.id - b.id)
+                newItemListSorted(sortingArray)
+                break;
+
+            case 5:
+                //orders by id major to minor
+                sortingArray.sort((a, b) => b.id - a.id)
+                newItemListSorted(sortingArray)
+                break;
+        }
+    })
 }
 
