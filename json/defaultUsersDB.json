@@ -1,29 +1,38 @@
 [
     {
-        "user": "admin",
+        "user": "Admin",
         "pass": "admin",
-        "state": false,
-        "stock": []
-    },
-    {
-        "user": "example",
-        "pass": "example",
         "state": false,
         "stock": [
             {
-                "id": "0000",
-                "item": "Example 01",
-                "stock": 100
+                "id": "3080",
+                "item": "Nvidia rtx 3080",
+                "stock": 180
             },
             {
-                "id": "1111",
-                "item": "Example 02",
-                "stock": 200
+                "id": "6800",
+                "item": "Amd radeon 6800",
+                "stock": 95
             },
             {
-                "id": "2222",
-                "item": "Example 03",
-                "stock": 300
+                "id": "7021",
+                "item": "Kingston ram 32gb",
+                "stock": 680
+            },
+            {
+                "id": "12900",
+                "item": "Intel i9",
+                "stock": 225
+            },
+            {
+                "id": "6900",
+                "item": "Amd radeon 6900",
+                "stock": 187
+            },
+            {
+                "id": "3080",
+                "item": "Nvidia rtx 3080",
+                "stock": 156
             }
         ]
     }

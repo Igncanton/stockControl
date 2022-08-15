@@ -298,7 +298,7 @@ form {
 /* Delete everything btn */
 .emptyBtn {
     display: block;
-    margin: 1em auto 0 auto;
+    margin: 1em auto 1em auto;
     font-size: 1.4rem;
     border: none;
     background-color: #777777;

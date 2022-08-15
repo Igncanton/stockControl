@@ -28,13 +28,25 @@ const array = obtenerProductos()
 
 array.then(data => usersDataBaseChecker(data))
 
-// usersDataBaseChecker()
+//Converts the first letter of a string to upperCase
+const firstLetterUpperCase = (stringParam) => {
+    let stringHolder = stringParam
+    if (stringParam === '') {
+        stringHolder = ' '
+    }
+    let lowerCaseString = stringHolder.toLowerCase()
+    let stringSplit = lowerCaseString.split('')
+    stringSplit[0] = stringSplit[0].toUpperCase()
+    stringSplit = stringSplit.join('')
+
+    return stringSplit
+}
 
 //Login form
 loginForm.addEventListener('submit', (e) => {
     e.preventDefault()
 
-    const inputName = loginName.value
+    const inputName = firstLetterUpperCase(loginName.value)
     const inputPassword = loginPassword.value
 
     const findArrayName = () => {
@@ -75,7 +87,7 @@ const bringNewUserFormElements = () => {
 
     createNewUserBtn.addEventListener('click', (e) => {
         e.preventDefault()
-        const userValue = newUserName.value
+        const userValue = firstLetterUpperCase(newUserName.value).trim()
         const pass01Value = newPassword01.value
         const pass02Value = newPassword02.value
 
@@ -97,24 +109,27 @@ const bringNewUserFormElements = () => {
 
             if (newUserSearch === undefined) {
                 if (pass01Value === pass02Value) {
+                    if (pass01Value.length < 6) {
+                        alert("pass corto")
+                    } else {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success!',
+                            text: 'New user succesfully created!.',
+                            confirmButtonColor: '#556b2f',
+                            iconColor: '#556b2f',
+                            showConfirmButton: false,
+                            customClass: {
+                                confirmButton: 'modalBtn'
+                            },
+                            didClose: setTimeout(() => {
+                                location.reload()
+                            }, '850')
+                        })
 
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success!',
-                        text: 'New user succesfully created!.',
-                        confirmButtonColor: '#556b2f',
-                        iconColor: '#556b2f',
-                        showConfirmButton: false,
-                        customClass: {
-                            confirmButton: 'modalBtn'
-                        },
-                        didClose: setTimeout(() => {
-                            location.reload()
-                        }, '850')
-                    })
-
-                    usersDB.push({ user: userValue, pass: pass01Value, state: false, stock: [] })
-                    localStorage.setItem('StockifyDB', JSON.stringify(usersDB))
+                        usersDB.push({ user: userValue, pass: pass01Value, state: false, stock: [] })
+                        localStorage.setItem('StockifyDB', JSON.stringify(usersDB))
+                    }
 
                 } else {
                     Swal.fire({
@@ -167,7 +182,7 @@ btnCreateAccount.addEventListener('click', () => {
     createNewAccountLogin.autocomplete = 'off'
     createNewAccountLogin.innerHTML = `
         <input class="inputLogin" id='newUserName' type="text" placeholder="Enter new username...">
-        <input class="inputLogin" id='newPassword01' type="text" placeholder="Password..." style="-webkit-text-security: disc;">
+        <input class="inputLogin" id='newPassword01' type="text" placeholder="Password must be longer than 6 digits..." style="-webkit-text-security: disc;">
         <input class="inputLogin" id='newPassword02' type="text" placeholder="Re-enter Password..." style="-webkit-text-security: disc;">
         <input class="btnCreateAccount" id='createNewUserBtn' type='submit' value='Create New Account'>
     `

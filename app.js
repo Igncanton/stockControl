@@ -66,12 +66,28 @@ if (userLogin === undefined) {
 
     //Converts the first letter of a string to upperCase
     const firstLetterUpperCase = (stringParam) => {
-        let lowerCaseString = stringParam.toLowerCase()
+        let stringHolder = stringParam
+        if (stringParam === '') {
+            stringHolder = ' '
+        }
+        let lowerCaseString = stringHolder.toLowerCase()
         let stringSplit = lowerCaseString.split('')
         stringSplit[0] = stringSplit[0].toUpperCase()
         stringSplit = stringSplit.join('')
 
         return stringSplit
+    }
+
+    //Searchs for an already existing product name
+    const productChecker = (productParam) => {
+        let arraySearch = itemsArray.find(x => x.item === productParam)
+        return arraySearch
+    }
+
+    //Searchs for an already existing id
+    const idProductChecker = (idParam) => {
+        let arraySearch = itemsArray.find(x => x.id === idParam)
+        return arraySearch
     }
 
     //Input event listener
@@ -81,7 +97,6 @@ if (userLogin === undefined) {
         let idProduct = inputId.value
         let product = inputProduct.value
         let amount = parseInt(inputAmount.value)
-
 
         //hecks if there are empty inputs
         if (idProduct === '' || amount === '' || product === '') {
@@ -131,49 +146,100 @@ if (userLogin === undefined) {
                 }
             })
         } else {
+            //Standarizes the input name, upperCasing the first letter
             product = firstLetterUpperCase(inputProduct.value)
-            //creates the new item object and pushes it the the main array
-            let itemObject = { id: idProduct, item: product, stock: amount }
+            //Checks if the product name already exists
+            const nameChecker = productChecker(product)
+            //Checks if a produt ID already exists
+            const idChecker = idProductChecker(idProduct)
 
-            itemsArray.push(itemObject)
+            //It evaluates that the user is indeed creating a new non-existing item
+            if (nameChecker !== undefined && idChecker !== undefined) { //Evaluates if both checks return true
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'ID number & Product name already exists',
+                    text: 'Please enter a different ID & product name.',
+                    confirmButtonColor: '#dc143c',
+                    iconColor: '#dc143c',
+                    customClass: {
+                        confirmButton: 'modalBtn'
+                    },
+                    willClose: inputId.focus()
+                })
+                inputId.value = ''
+                inputProduct.value = ''
 
-            //creates and appends it in the dom
-            let item = document.createElement('div')
-            item.classList.add('itemContainer')
-            item.setAttribute('id', `${idProduct}`)
-            item.innerHTML = `
+            } else if (nameChecker !== undefined) { //Alerts if the name already exists
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Product name already exists',
+                    text: 'Please enter a different product name.',
+                    confirmButtonColor: '#dc143c',
+                    iconColor: '#dc143c',
+                    customClass: {
+                        confirmButton: 'modalBtn'
+                    },
+                    willClose: inputProduct.focus()
+                })
+                inputProduct.value = ''
+
+            } else if (idChecker !== undefined) { //Alerts if the ID already exists
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'ID number already exists',
+                    text: 'Please enter a different ID number.',
+                    confirmButtonColor: '#dc143c',
+                    iconColor: '#dc143c',
+                    customClass: {
+                        confirmButton: 'modalBtn'
+                    },
+                    willClose: inputId.focus()
+                })
+                inputId.value = ''
+
+            } else {
+                //creates the new item object and pushes it the the main array
+                let itemObject = { id: idProduct, item: product, stock: amount }
+
+                itemsArray.push(itemObject)
+
+                //creates and appends it in the dom
+                let item = document.createElement('div')
+                item.classList.add('itemContainer')
+                item.setAttribute('id', `${idProduct}`)
+                item.innerHTML = `
                 <p class="itemId" id="itemId">#${idProduct}</p>
                 <p class="itemName" id="itemName">${product}</p>
                 <p class="itemAmount" id="itemAmount">${amount}</p>
                 <button class="btn btnEdit" id="btnEdit">${editIcon}</button>
                 <button class="btn btnDelete" id="btnDelete">${trashIcon}</button>
         `
+                itemList.appendChild(item)
 
-            itemList.appendChild(item)
+                //updates local storage
+                userLogin.stock = itemsArray
+                localStorage.setItem('StockifyDB', JSON.stringify(appDB))
 
-            //updates local storage
-            userLogin.stock = itemsArray
-            localStorage.setItem('StockifyDB', JSON.stringify(appDB))
+                //resets values to empty strings
+                inputId.value = ''
+                inputProduct.value = ''
+                inputAmount.value = ''
 
-            //resets values to empty strings
-            inputId.value = ''
-            inputProduct.value = ''
-            inputAmount.value = ''
+                Toastify({
+                    text: "Added product",
+                    gravity: 'bottom',
+                    position: 'right',
+                    style: {
+                        background: '#556b2f',
+                    },
+                    duration: 1700
+                }).showToast();
 
-            Toastify({
-                text: "Added product",
-                gravity: 'bottom',
-                position: 'right',
-                style: {
-                    background: '#556b2f',
-                },
-                duration: 1700
-            }).showToast();
+            }
         }
-
     })
 
-    //Empties the dom and the localStorage
+    //Empties the items list from the dom and the localStorage
     emptyBtn.addEventListener('click', () => {
 
         Swal.fire({
@@ -227,24 +293,42 @@ if (userLogin === undefined) {
         let parentId = e.target.parentElement.id
 
         if (e.target.classList.contains('btnDelete')) {
-            itemList.removeChild(selectedBtn)
-
-            let itemFind = itemsArray.findIndex(x => x.id === parentId)
-
-            itemsArray.splice(itemFind, 1)
-
-            userLogin.stock = itemsArray
-            localStorage.setItem('StockifyDB', JSON.stringify(appDB))
-
-            Toastify({
-                text: "Deleted product",
-                gravity: 'bottom',
-                position: 'right',
-                style: {
-                    background: '#dc143c',
+            Swal.fire({
+                title: 'Are you sure you want to delete this item?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                iconColor: '#dc143c',
+                showCancelButton: true,
+                confirmButtonColor: '#556B2F',
+                cancelButtonColor: '#dc143c',
+                confirmButtonText: 'Yes, please',
+                cancelButtonText: 'No, thanks',
+                customClass: {
+                    confirmButton: 'modalBtn',
+                    cancelButton: 'modalBtn'
                 },
-                duration: 1700
-            }).showToast();
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    itemList.removeChild(selectedBtn)
+
+                    let itemFind = itemsArray.findIndex(x => x.id === parentId)
+
+                    itemsArray.splice(itemFind, 1)
+
+                    userLogin.stock = itemsArray
+                    localStorage.setItem('StockifyDB', JSON.stringify(appDB))
+
+                    Toastify({
+                        text: "Deleted product",
+                        gravity: 'bottom',
+                        position: 'right',
+                        style: {
+                            background: '#dc143c',
+                        },
+                        duration: 1700
+                    }).showToast();
+                }
+            })
         }
 
         //Edit Functions
@@ -312,38 +396,98 @@ if (userLogin === undefined) {
                     (newAmountValue === '') && (newAmountValue = arraySearch.stock);
                 }
 
-                emptyChecker()
+                const emptyUpperCaseHandler = () => {
+                    if (newNameValue !== '') {
+                        newNameValue = firstLetterUpperCase(newNameValue)
+                    }
+                }
 
-                newNameValue = firstLetterUpperCase(newNameValue)
+                emptyUpperCaseHandler()
 
-                arraySearch.id = newIdValue
-                arraySearch.item = newNameValue
-                arraySearch.stock = newAmountValue
-                e.target.id = newIdValue
-                selectedBtn.id = newIdValue
+                const productCheck = productChecker(newNameValue)
+                const idProductCheck = idProductChecker(newIdValue)
+                if (productCheck !== undefined && idProductCheck !== undefined) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'ID & Product name already exists',
+                        text: 'Please enter a different ID & product name.',
+                        confirmButtonColor: '#dc143c',
+                        iconColor: '#dc143c',
+                        customClass: {
+                            confirmButton: 'modalBtn'
+                        },
+                        willClose: newIdInput.focus()
+                    })
+                    newIdInput.value = ''
+                    newNameInput.value = ''
 
-                selectedBtn.innerHTML = `
-                <p class="itemId" id="itemId">${newIdValue}</p>
-                <p class="itemName" id="itemName">${newNameValue}</p>
-                <p class="itemAmount" id="itemAmount">${newAmountValue}</p>
-                <button class="btn btnEdit" id="btnEdit">${editIcon}</button>
-                <button class="btn btnDelete" id="btnDelete">${trashIcon}</button>
-                `
+                } else if (productCheck !== undefined) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Product name already exists',
+                        text: 'Please enter a different product name.',
+                        confirmButtonColor: '#dc143c',
+                        iconColor: '#dc143c',
+                        customClass: {
+                            confirmButton: 'modalBtn'
+                        },
+                        willClose: newNameInput.focus()
+                    })
+                    newNameInput.value = ''
 
-                userLogin.stock = itemsArray
-                localStorage.setItem('StockifyDB', JSON.stringify(appDB))
+                } else if (idProductCheck !== undefined) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'ID number already exists',
+                        text: 'Please enter a different ID number.',
+                        confirmButtonColor: '#dc143c',
+                        iconColor: '#dc143c',
+                        customClass: {
+                            confirmButton: 'modalBtn'
+                        },
+                        willClose: newIdInput.focus()
+                    })
+                    newIdInput.value = ''
 
-                Toastify({
-                    text: "Edited product",
-                    gravity: 'bottom',
-                    position: 'right',
-                    style: {
-                        background: '#5F9EA0',
-                    },
-                    duration: 1700
-                }).showToast();
 
-                document.getElementById(btnParentId).removeEventListener('submit', editBtnFunc)
+                } else {
+                    emptyChecker()
+
+                    document.getElementById(btnParentId).removeEventListener('submit', editBtnFunc)
+
+                    arraySearch.id = newIdValue
+                    arraySearch.item = newNameValue
+                    arraySearch.stock = newAmountValue
+                    e.target.id = newIdValue
+                    selectedBtn.id = newIdValue
+
+                    selectedBtn.innerHTML = `
+                    <p class="itemId" id="itemId">#${newIdValue}</p>
+                    <p class="itemName" id="itemName">${newNameValue}</p>
+                    <p class="itemAmount" id="itemAmount">${newAmountValue}</p>
+                    <button class="btn btnEdit" id="btnEdit">${editIcon}</button>
+                    <button class="btn btnDelete" id="btnDelete">${trashIcon}</button>
+                    `
+
+                    userLogin.stock = itemsArray
+                    localStorage.setItem('StockifyDB', JSON.stringify(appDB))
+
+                    Toastify({
+                        text: "Edited product",
+                        gravity: 'bottom',
+                        position: 'right',
+                        style: {
+                            background: '#5F9EA0',
+                        },
+                        duration: 1700
+                    }).showToast();
+
+
+
+                }
+
+
+
             })
         }
     })
@@ -379,14 +523,14 @@ if (userLogin === undefined) {
     //Search by name input
     searchFormByName.addEventListener('submit', (e) => {
         e.preventDefault()
-        const searchValue = searchNameInput.value
+        const searchValue = firstLetterUpperCase(String(searchNameInput.value))
         const searchItemsArray = itemsArray.find(x => x.item === searchValue)
-
+        console.log(searchValue)
         if (searchItemsArray !== undefined) {
             const searchItemID = searchItemsArray.id
 
             const itemID = document.getElementById(searchItemID)
-            console.log(itemID)
+
             itemID.classList.add('itemFocus')
             itemID.scrollIntoView()
             searchNameInput.value = ''
