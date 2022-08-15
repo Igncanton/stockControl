@@ -14,7 +14,7 @@ const usersDataBaseChecker = (usersDefault) => {
     //Ternary Operator
     localStorage.getItem('StockifyDB')
         ? usersDB = JSON.parse(localStorage.getItem('StockifyDB'))
-        : (usersDB.push(usersDefault[0], usersDefault[1]), localStorage.setItem('StockifyDB', JSON.stringify(usersDB)))
+        : (usersDB.push(usersDefault[0]), localStorage.setItem('StockifyDB', JSON.stringify(usersDB)))
 }
 
 // Async JSON fetch for default users data
