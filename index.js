@@ -47,7 +47,7 @@ loginForm.addEventListener('submit', (e) => {
     e.preventDefault()
 
     const inputName = firstLetterUpperCase(loginName.value)
-    const inputPassword = loginPassword.value
+    const inputPassword = loginPassword.value.toLowerCase()
 
     const findArrayName = () => {
         const nameResult = usersDB.find(x => x.user === inputName)
@@ -71,7 +71,7 @@ loginForm.addEventListener('submit', (e) => {
         } else {
             nameResult.state = true
             localStorage.setItem('StockifyDB', JSON.stringify(usersDB))
-            window.location.replace("app.html");
+            window.location.replace("./app/app.html");
         }
     }
 
@@ -88,10 +88,10 @@ const bringNewUserFormElements = () => {
     createNewUserBtn.addEventListener('click', (e) => {
         e.preventDefault()
         const userValue = firstLetterUpperCase(newUserName.value).trim()
-        const pass01Value = newPassword01.value
-        const pass02Value = newPassword02.value
+        const pass01Value = newPassword01.value.toLowerCase()
+        const pass02Value = newPassword02.value.toLowerCase()
 
-        if (userValue === '' || pass01Value === '' || pass02Value === '') {
+        if (userValue === '' || pass01Value === '' || pass02Value === '') { //Checks empty inputs
             Swal.fire({
                 icon: 'warning',
                 title: 'Empty fields detected',
@@ -108,7 +108,7 @@ const bringNewUserFormElements = () => {
             const newUserSearch = usersDB.find(x => x.user === userValue)
 
             if (newUserSearch === undefined) {
-                if (pass01Value === pass02Value) {
+                if (pass01Value === pass02Value) { //Checks if passwords match
                     if (pass01Value.length < 6) {
                         alert("pass corto")
                     } else {

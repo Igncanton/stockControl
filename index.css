@@ -1,6 +1,7 @@
 /* Font import */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
+/* Resets and global style */
 * {
     margin: 0;
     padding: 0;
@@ -19,6 +20,7 @@ body {
     align-items: center;
 }
 
+/* Main container */
 .loginContainer {
     margin-top: -4%;
     padding: 1rem 1.5rem;
@@ -45,7 +47,7 @@ p {
     width: 100%;
 }
 
-
+/* Input form section */
 .inputLogin {
     padding: 0.5rem;
     padding-left: 0.2rem;
@@ -100,4 +102,11 @@ p {
 
 .modalBtn:focus {
     box-shadow: none !important;
+}
+
+/* Media queries */
+@media (max-width: 335px) {
+    h1 {
+        font-size: 4rem;
+    }
 }

@@ -52,7 +52,6 @@ header {
     letter-spacing: 0.05rem;
     cursor: pointer;
     transition: background-color 500ms ease;
-
 }
 
 .logOut:hover {
@@ -142,16 +141,10 @@ form {
     justify-content: center;
 }
 
-.userTitle {}
-
-.userActive {}
-
 .searchFormContainer {
     display: flex;
     gap: 0.3rem;
 }
-
-.searchFormByName {}
 
 .searchInput {
     height: 1.5rem;
@@ -187,10 +180,6 @@ form {
 .searchBtn:hover {
     background-color: rgb(116, 146, 64);
 }
-
-.searchBtn img {}
-
-.searchFormByID {}
 
 .selectDropdown {
     display: flex;
@@ -308,7 +297,6 @@ form {
     line-height: 0;
     cursor: pointer;
     transition: background-color 500ms ease;
-
 }
 
 .emptyBtn:hover {
@@ -337,11 +325,59 @@ form {
     html {
         font-size: 0.8rem;
     }
+
+    .logOut {
+        font-size: 1.12rem;
+    }
+
+    .inputBtn {
+        width: 8.72rem;
+    }
 }
 
-@media (max-width: 730px) {
+@media (max-width: 750px) {
     html {
         font-size: 0.7rem;
+    }
+
+    .logoTitle {
+        font-size: 2.5rem;
+    }
+
+    .logOut {
+        font-size: 1.12rem;
+    }
+
+    .inputBtn {
+        width: 9.15rem;
+    }
+
+    .panelControl {
+        display: initial;
+    }
+
+    .userTitle {
+        margin-top: 0.4rem;
+        text-align: center;
+        font-size: 1.65rem;
+    }
+
+    .searchFormContainer {
+        width: fit-content;
+        margin: 1.3rem auto 0 auto;
+    }
+
+    .searchInput {
+        height: 2rem;
+        width: 18rem;
+    }
+
+    .selectDropdown {
+        margin-top: 2rem;
+    }
+
+    .orderOptionsDropdown__title {
+        font-size: 1.5rem;
     }
 }
 
@@ -349,22 +385,135 @@ form {
     html {
         font-size: 0.6rem;
     }
+
+    .inputBtn {
+        width: 9.8rem;
+    }
+
+    .itemId {
+        height: 3.25rem;
+    }
+
+    .itemName {
+        height: 3.25rem;
+    }
 }
 
 @media (max-width: 550px) {
     html {
         font-size: 0.5rem;
     }
-}
 
-@media (max-width: 458px) {
-    html {
-        font-size: 0.4rem;
+    .searchInput {
+        height: 2.5rem;
+        width: 25rem;
+    }
+
+    .inputBtn {
+        width: 10.460rem;
+    }
+
+    .editIcon {
+        margin: auto;
+        display: block;
+        width: 14px !important;
+    }
+
+    .trashIcon {
+        margin: auto;
+        display: block;
+        width: 14px !important;
     }
 }
 
-@media (max-width: 370px) {
+@media (max-width: 478px) {
+    html {
+        font-size: 0.4rem;
+    }
+
+    .logoTitle {
+        font-size: 3rem;
+    }
+
+    .logOut {
+        font-size: 1.7rem;
+    }
+
+    .userTitle {
+        font-size: 2.3rem;
+    }
+
+    .orderOptionsDropdown__title {
+        font-size: 2.25rem;
+        margin-right: 0.5rem;
+    }
+
+    .searchInput {
+        height: 3rem;
+        width: 25rem;
+    }
+
+    .searchIcon {
+        width: 12px !important;
+        width: 27rem;
+    }
+
+    .itemId {
+        height: 3.55rem;
+    }
+
+    .itemName {
+        height: 3.55rem;
+    }
+
+    .editIcon {
+        width: 12px !important;
+    }
+
+    .trashIcon {
+        width: 12px !important;
+    }
+}
+
+@media (max-width: 376px) {
+    html {
+        font-size: 0.35rem;
+    }
+
+    .searchFormContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 0.7rem;
+    }
+
+    .searchInput {
+        height: 4rem;
+        width: 45rem;
+    }
+
+    .inputBtn {
+        width: 11rem;
+    }
+}
+
+@media (max-width: 340px) {
     html {
         font-size: 0.3rem;
+    }
+
+    .inputBtn {
+        width: 11rem;
+    }
+
+    .searchIcon {
+        width: 10px !important;
+    }
+
+    .editIcon {
+        width: 10px !important;
+    }
+
+    .trashIcon {
+        width: 10px !important;
     }
 }

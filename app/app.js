@@ -21,9 +21,9 @@ if (userLogin === undefined) {
     let user = ''
 
     //Svg icons
-    const editIcon = `<img src="./img/editIcon2.svg" style="width:16px; pointer-events: none" alt="Edit trash icon">`
-    const trashIcon = `<img src="./img/deleteIcon2.svg" style="width:16px; pointer-events: none" alt="Delete trash icon">`
-    const searchIcon = `<img src="./img/searchIcon2.svg" style="width:14px; pointer-events: none" alt="Search trash icon">`
+    const editIcon = `<img src="../img/editIcon2.svg" class="editIcon" style="width:16px; pointer-events: none" alt="Edit trash icon">`
+    const trashIcon = `<img src="../img/deleteIcon2.svg" class="trashIcon" style="width:16px; pointer-events: none" alt="Delete trash icon">`
+    const searchIcon = `<img src="../img/searchIcon2.svg" class="searchIcon" style="width:14px; pointer-events: none" alt="Search trash icon">`
 
     //Creates all the items within the main array
     const itemsCreation = (arrayParam) => {
@@ -111,7 +111,6 @@ if (userLogin === undefined) {
                     confirmButton: 'modalBtn'
                 }
             })
-
         } else if (isNaN(amount) && isNaN(idProduct)) { //Checks if ID & Amount are both numbers
             Swal.fire({
                 icon: 'warning',
@@ -449,7 +448,6 @@ if (userLogin === undefined) {
                     })
                     newIdInput.value = ''
 
-
                 } else {
                     emptyChecker()
 
@@ -481,13 +479,7 @@ if (userLogin === undefined) {
                         },
                         duration: 1700
                     }).showToast();
-
-
-
                 }
-
-
-
             })
         }
     })
@@ -503,7 +495,7 @@ if (userLogin === undefined) {
         userLogged.state = false
         userActive = ''
         localStorage.setItem('StockifyDB', JSON.stringify(dataBaseDB))
-        window.location.replace("index.html");
+        window.location.replace("../index.html");
     })
 
     //Elements from the DOM - Control Panel
@@ -585,7 +577,6 @@ if (userLogin === undefined) {
             })
         }
     })
-
 
     /* Orders all items by different values within the dropdown select */
     const orderOptionsDropdown = document.getElementById('orderOptionsDropdown')
