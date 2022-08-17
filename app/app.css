@@ -333,6 +333,41 @@ form {
     .inputBtn {
         width: 8.72rem;
     }
+
+    .itemId {
+        height: 3.25rem;
+    }
+
+    .itemName {
+        height: 3.25rem;
+    }
+
+    input.itemId,
+    input.itemName,
+    input.itemAmount {
+        height: 3.25rem;
+    }
+
+    input.itemId {
+        width: 9.1rem;
+    }
+
+    input.itemName {
+        width: 30rem;
+    }
+
+    input.itemAmount {
+        width: 9rem;
+    }
+
+    .formEdit {
+        height: 3.25rem;
+        width: 52.535rem;
+    }
+
+    .submitBtn {
+        width: 4.435rem;
+    }
 }
 
 @media (max-width: 750px) {
@@ -379,6 +414,33 @@ form {
     .orderOptionsDropdown__title {
         font-size: 1.5rem;
     }
+
+    input.itemId,
+    input.itemName,
+    input.itemAmount {
+        height: 3.25rem;
+    }
+
+    input.itemId {
+        width: 9.2rem;
+    }
+
+    input.itemName {
+        width: 30rem;
+    }
+
+    input.itemAmount {
+        width: 8.9rem;
+    }
+
+    .formEdit {
+        height: 3.25rem;
+        width: 52.74rem;
+    }
+
+    .submitBtn {
+        width: 4.64rem;
+    }
 }
 
 @media (max-width: 640px) {
@@ -391,11 +453,32 @@ form {
     }
 
     .itemId {
-        height: 3.25rem;
+        height: 3.2rem;
+    }
+
+    input.itemId {
+        width: 9.1rem;
     }
 
     .itemName {
+        height: 3.2rem;
+    }
+
+    input.itemName {
+        width: 30.4rem;
+    }
+
+    input.itemAmount {
+        width: 9.08rem;
+    }
+
+    .formEdit {
         height: 3.25rem;
+        width: 53.002rem;
+    }
+
+    .submitBtn {
+        width: 4.9024rem;
     }
 }
 
@@ -423,6 +506,33 @@ form {
         margin: auto;
         display: block;
         width: 14px !important;
+    }
+
+    input.itemId,
+    input.itemName,
+    input.itemAmount {
+        height: 3.25rem;
+    }
+
+    input.itemId {
+        width: 9.1rem;
+    }
+
+    input.itemName {
+        width: 30rem;
+    }
+
+    input.itemAmount {
+        width: 9rem;
+    }
+
+    .formEdit {
+        height: 3.25rem;
+        width: 53.13rem;
+    }
+
+    .submitBtn {
+        width: 5rem;
     }
 }
 
@@ -473,6 +583,33 @@ form {
     .trashIcon {
         width: 12px !important;
     }
+
+    input.itemId,
+    input.itemName,
+    input.itemAmount {
+        height: 3.55rem;
+    }
+
+    input.itemId {
+        width: 9.1rem;
+    }
+
+    input.itemName {
+        width: 30.5rem;
+    }
+
+    input.itemAmount {
+        width: 9rem;
+    }
+
+    .formEdit {
+        height: 3.56rem;
+        width: 53.315rem;
+    }
+
+    .submitBtn {
+        width: 5.25rem;
+    }
 }
 
 @media (max-width: 376px) {
@@ -493,6 +630,33 @@ form {
 
     .inputBtn {
         width: 11rem;
+    }
+
+    input.itemId,
+    input.itemName,
+    input.itemAmount {
+        height: 3.55rem;
+    }
+
+    input.itemId {
+        width: 9.2rem;
+    }
+
+    input.itemName {
+        width: 30rem;
+    }
+
+    input.itemAmount {
+        width: 8.9rem;
+    }
+
+    .formEdit {
+        height: 3.56rem;
+        width: 53.64rem;
+    }
+
+    .submitBtn {
+        width: 5.5rem;
     }
 }
 
@@ -515,5 +679,22 @@ form {
 
     .trashIcon {
         width: 10px !important;
+    }
+
+    .formEdit {
+        height: 3.56rem;
+        width: 53.6rem;
+    }
+
+    input.itemId {
+        width: 9.13rem;
+    }
+
+    input.itemAmount {
+        width: 9rem;
+    }
+
+    .submitBtn {
+        width: 5.43rem;
     }
 }

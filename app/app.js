@@ -233,7 +233,6 @@ if (userLogin === undefined) {
                     },
                     duration: 1700
                 }).showToast();
-
             }
         }
     })

@@ -30,8 +30,13 @@
                 "stock": 187
             },
             {
-                "id": "3080",
-                "item": "Nvidia rtx 3080",
+                "id": "666",
+                "item": "Metallica",
+                "stock": 156
+            },
+            {
+                "id": "777",
+                "item": "Gojira",
                 "stock": 156
             }
         ]

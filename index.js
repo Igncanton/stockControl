@@ -110,7 +110,20 @@ const bringNewUserFormElements = () => {
             if (newUserSearch === undefined) {
                 if (pass01Value === pass02Value) { //Checks if passwords match
                     if (pass01Value.length < 6) {
-                        alert("pass corto")
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Password too short!',
+                            text: 'Must be 6 digits or longer.',
+                            confirmButtonColor: '#5F9EA0',
+                            iconColor: '#5F9EA0',
+                            customClass: {
+                                confirmButton: 'modalBtn'
+                            },
+                            willClose: newPassword01.focus()
+                        })
+
+                        newPassword01.value = ''
+                        newPassword02.value = ''
                     } else {
                         Swal.fire({
                             icon: 'success',
