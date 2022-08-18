@@ -10,3 +10,5 @@ I decided to go for a CRUD (Create, Read, Update, Delete) application where the 
 . As well as creating everything dinamically within the DOM
 
 . Each user has it's own invidual session with their own individual things added
+
+Live: https://igncanton.github.io/stockControl/
