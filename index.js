@@ -53,7 +53,7 @@ loginForm.addEventListener('submit', (e) => {
         const nameResult = usersDB.find(x => x.user === inputName)
         const passResult = usersDB.find(x => x.pass === inputPassword)
 
-        if (nameResult === undefined || passResult === undefined) {
+        if (nameResult === undefined || passResult === undefined) { //Evaluates if the user or pass are correct
             Swal.fire({
                 icon: 'error',
                 title: 'Invalid user or password',
@@ -105,10 +105,12 @@ const bringNewUserFormElements = () => {
             })
 
         } else {
+
             const newUserSearch = usersDB.find(x => x.user === userValue)
 
-            if (newUserSearch === undefined) {
-                if (pass01Value === pass02Value) { //Checks if passwords match
+            if (newUserSearch === undefined) {//only if the user is not found / does not exists
+
+                if (pass01Value === pass02Value) { //Checks password's length
                     if (pass01Value.length < 6) {
                         Swal.fire({
                             icon: 'warning',
@@ -125,7 +127,7 @@ const bringNewUserFormElements = () => {
                         newPassword01.value = ''
                         newPassword02.value = ''
                     } else {
-                        Swal.fire({
+                        Swal.fire({ //alerts user created succesfully
                             icon: 'success',
                             title: 'Success!',
                             text: 'New user succesfully created!.',
@@ -144,7 +146,7 @@ const bringNewUserFormElements = () => {
                         localStorage.setItem('StockifyDB', JSON.stringify(usersDB))
                     }
 
-                } else {
+                } else { //alerts password missmatch
                     Swal.fire({
                         icon: 'warning',
                         title: 'Password mismatch',
@@ -160,7 +162,7 @@ const bringNewUserFormElements = () => {
                     newPassword02.value = ''
                 }
             } else {
-                Swal.fire({
+                Swal.fire({ //alerts the user already exists
                     icon: 'warning',
                     title: 'That user already exists',
                     text: 'Please choose a different name.',

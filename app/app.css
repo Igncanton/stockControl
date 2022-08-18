@@ -480,6 +480,10 @@ form {
     .submitBtn {
         width: 4.9024rem;
     }
+
+    .itemFocus {
+        outline: 4px solid orange !important;
+    }
 }
 
 @media (max-width: 550px) {
@@ -610,6 +614,10 @@ form {
     .submitBtn {
         width: 5.25rem;
     }
+
+    .itemFocus {
+        outline: 3px solid orange !important;
+    }
 }
 
 @media (max-width: 376px) {
@@ -696,5 +704,9 @@ form {
 
     .submitBtn {
         width: 5.43rem;
+    }
+
+    .itemFocus {
+        outline: 2px solid orange !important;
     }
 }

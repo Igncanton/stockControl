@@ -30,14 +30,14 @@
                 "stock": 187
             },
             {
-                "id": "666",
-                "item": "Metallica",
-                "stock": 156
+                "id": "5750",
+                "item": "Amd ryzen pro 5750",
+                "stock": 200
             },
             {
-                "id": "777",
-                "item": "Gojira",
-                "stock": 156
+                "id": "5650",
+                "item": "Amd ryzen pro 5650",
+                "stock": 95
             }
         ]
     }

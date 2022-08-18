@@ -212,7 +212,7 @@ if (userLogin === undefined) {
                 <p class="itemAmount" id="itemAmount">${amount}</p>
                 <button class="btn btnEdit" id="btnEdit">${editIcon}</button>
                 <button class="btn btnDelete" id="btnDelete">${trashIcon}</button>
-        `
+                `
                 itemList.appendChild(item)
 
                 //updates local storage
@@ -375,7 +375,7 @@ if (userLogin === undefined) {
             newSubmitBtn.value = '+'
             newFormEdit.append(newSubmitBtn)
 
-
+            //Edit Submit event listener
             document.getElementById(btnParentId).addEventListener('submit', function editBtnFunc(e) {
                 e.preventDefault()
 
@@ -385,6 +385,7 @@ if (userLogin === undefined) {
 
                 const arraySearch = itemsArray.find(x => x.id === e.target.id)
 
+                //Evaluates empty spaces
                 const emptyChecker = () => {
                     //Logic Operator AND
                     (newIdValue === '') && (newIdValue = arraySearch.id);
@@ -404,7 +405,7 @@ if (userLogin === undefined) {
 
                 const productCheck = productChecker(newNameValue)
                 const idProductCheck = idProductChecker(newIdValue)
-                if (productCheck !== undefined && idProductCheck !== undefined) {
+                if (productCheck !== undefined && idProductCheck !== undefined) { //checks if product and id already exists
                     Swal.fire({
                         icon: 'warning',
                         title: 'ID & Product name already exists',
@@ -419,7 +420,7 @@ if (userLogin === undefined) {
                     newIdInput.value = ''
                     newNameInput.value = ''
 
-                } else if (productCheck !== undefined) {
+                } else if (productCheck !== undefined) { //checks if the name already exists
                     Swal.fire({
                         icon: 'warning',
                         title: 'Product name already exists',
@@ -433,7 +434,7 @@ if (userLogin === undefined) {
                     })
                     newNameInput.value = ''
 
-                } else if (idProductCheck !== undefined) {
+                } else if (idProductCheck !== undefined) { // checks if the ID already exists
                     Swal.fire({
                         icon: 'warning',
                         title: 'ID number already exists',
@@ -450,6 +451,7 @@ if (userLogin === undefined) {
                 } else {
                     emptyChecker()
 
+                    //removes the event listener added before to the edit button
                     document.getElementById(btnParentId).removeEventListener('submit', editBtnFunc)
 
                     arraySearch.id = newIdValue
@@ -483,6 +485,7 @@ if (userLogin === undefined) {
         }
     })
 
+    //Main logo reloads the site
     logoContainer.addEventListener('click', () => {
         document.location.reload()
     })
