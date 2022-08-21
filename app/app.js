@@ -14,7 +14,7 @@ const userLogin = appDB.find(x => x.state === true)
 
 //Checks if there is an active user, otherwise it redirects to the login page
 if (userLogin === undefined) {
-    window.location.replace("index.html")
+    window.location.replace("../index.html")
 } else {
     //Main array containing all the products added in the user's local storage
     let itemsArray = []
